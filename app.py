@@ -156,7 +156,7 @@ if st.button("Predict If LinkedIn User"):
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
         value = score,
-        title = {'text': f"Sentiment: {label}"},
+        title = {'text': f"{label}"},
         gauge = {"axis": {"range": [0, 1]},
                 "steps": [
                     {"range": [0, .5], "color":"red"},
