@@ -4,7 +4,7 @@ import numpy as np
 import pickle as pickle
 from PIL import Image
 import streamlit as st
-import plotly.graph_objects as go
+
 
 
 # loading in the model to predict on the data
@@ -168,6 +168,6 @@ if st.button("Predict If LinkedIn User"):
                 "bar":{"color":"yellow"}}
     ))
 
-st.plotly_chart(fig)
+    st.plotly_chart(fig)
 
 
