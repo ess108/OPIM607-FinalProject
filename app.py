@@ -131,10 +131,10 @@ result = ""
 if st.button("Predict If LinkedIn User"):
     result = prediction(income, education, parent, married,female) 
     if result >=.5:
-        st.success(f"Probability the person IS a LinkedIn {result}")
+        st.success(f"Probability your are a LinkedIn user: {result}")
         score = result
     else:
-        st.error(f"Probability the person is NOT a LinkedIn User {result}")
+        st.error(f"Probability your are a LinkedIn user:  {result}")
         score = result
 
 # result
