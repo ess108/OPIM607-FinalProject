@@ -120,7 +120,6 @@ def prediction(income, education, parent, married,female):
     prediction = classifier.predict_proba(
         [[income, education, parent, married,female, age]])[0][1]
     prediction = (prediction)
-    print(prediction)
     return prediction
 
 # if prediction == 1:
