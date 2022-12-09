@@ -168,6 +168,6 @@ if st.button("Predict If LinkedIn User"):
                 "bar":{"color":"yellow"}}
     ))
 
-    st.plotly_chart(fig)
+st.plotly_chart(fig)
 
 
