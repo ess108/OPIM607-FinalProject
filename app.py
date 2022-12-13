@@ -158,6 +158,7 @@ age = st.number_input('Enter your age: ', min_value=1,max_value=97)
 #Prediction Button
 # result = ""
 if st.button("Predict If LinkedIn User"):
+
     person = [income, education, parent, married, female, age]
     result = round((lr.predict_proba([person])[0][1]*100),2)
     if result >=50:
@@ -177,7 +178,7 @@ if st.button("Predict If LinkedIn User"):
 
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
-        value = result,
+        value = "test",
         title = {'text': f"{label}"},
         gauge = {"axis": {"range": [0, 100]},
                 "steps": [
