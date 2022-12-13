@@ -168,10 +168,10 @@ if st.button("Predict If LinkedIn User"):
 
 #Gauge visual
 
-    if result > .5:
+    if result >= 50:
         label = "LinkedIn User? Yes"
     else: 
-        result < .5
+        result < 50
         label = "LinkedIn User? No"
     
 
