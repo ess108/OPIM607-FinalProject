@@ -156,7 +156,7 @@ age = st.number_input('Enter your age: ', min_value=1,max_value=97)
 
 
 #Prediction Button
-result = ""
+# result = ""
 if st.button("Predict If LinkedIn User"):
     person = [income, education, parent, married, female, age]
     result = round((lr.predict_proba([person])[0][1]*100),2)
