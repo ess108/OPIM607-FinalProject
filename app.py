@@ -1,18 +1,61 @@
-
+import matplotlib.pyplot as plt
+import seaborn as sns
+import plotly.express as px
+import altair as alt
 import pandas as pd
 import numpy as np
-import pickle as pickle
+import pandas as pd
+import numpy as np
+import altair as alt
+import sklearn as sk
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+import pickle 
+import streamlit as st
 from PIL import Image
 import streamlit as st
 import plotly.graph_objects as go
 
 
-# loading in the model to predict on the data
-pickle_in = open('classifier.pkl', 'rb')
-classifier = pickle.load(pickle_in)
-  
-#st.title("Using Machine Learning to Predict LinkedIn Users")
-# Title
+
+
+s = pd.read_csv("social_media_usage.csv")
+
+def clean_sm(x):
+   y = np.where((x==1),1,0)
+   return y
+
+ss = s
+
+ss = pd.DataFrame({
+    "income":np.where(s["income"] > 9, np.nan, s["income"]),
+    "education":np.where(s["educ2"] > 8, np.nan,s["educ2"]),
+    "parent":clean_sm(s["par"]),
+    "married":clean_sm(s["marital"]),
+    "female":np.where(s["gender"]==2,s["gender"],0),
+    "age":np.where(s["age"]>98, np.nan, s["age"]),
+     "sm_li": clean_sm(s["web1h"])})
+
+ss = ss.dropna()
+
+y = ss["sm_li"]
+X= ss[["income","education","parent","married","female","age"]]
+
+X_train, X_test, y_train, y_test = train_test_split(X,
+                                                    y,
+                                                    stratify=y,       # same number of target in training & test set
+                                                    test_size=0.2,    # hold out 20% of data for testing
+                                                    random_state=987) 
+
+
+#Instantiate a logistic regression model and set class_weight to balanced. Fit the model with the training data.
+lr = LogisticRegression(class_weight='balanced')
+lr.fit(X_train, y_train)
+y_pred = lr.predict(X_test)
+
+#Format header of page
 col1, mid, col2 = st.columns([1,1,20])
 with col1:
     st.image("LinkedIn.png", width=60)
@@ -109,53 +152,32 @@ else:
 
  # Quesiton 5
 
-age = st.number_input('Enter your age: ', min_value=18,max_value=98)
+age = st.number_input('Enter your age: ', min_value=1,max_value=97)
 
 
-
-
-
-def prediction(income, education, parent, married,female):  
-   
-    prediction = classifier.predict_proba(
-        [[income, education, parent, married,female, age]])[0][1]
-    return prediction
-
-# if prediction == 1:
-#  x = classifier.predict(
-#         [[income, education, parent, married, female, age]])[:,1])
-# else:
-#  x = classifier.predict(
-#         [income, education, parent, married, female, age]])[:,0])
+#Prediction Button
 result = ""
 if st.button("Predict If LinkedIn User"):
-    result = prediction(income, education, parent, married,female) 
+    person = [income, education, parent, married, female, age]
+    result = lr.predict_proba([person])[0][1]
     if result >=.5:
         st.success(f"Probability your are a LinkedIn user: {result}")
-        score = result
     else:
         st.error(f"Probability your are a LinkedIn user:  {result}")
-        score = result
-
-# result
 
 
-# if result < .5:
-#     score = result
-# else: float(result)
-# #score = float(result)
+#Gauge visual
 
-#### Create label (called sent) from TextBlob polarity score to use in summary below
-    if score > .5:
+    if result > .5:
         label = "LinkedIn User? Yes"
     else: 
-        score < .5
+        result < .5
         label = "LinkedIn User? No"
     
 
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
-        value = score,
+        value = result,
         title = {'text': f"{label}"},
         gauge = {"axis": {"range": [0, 1]},
                 "steps": [
@@ -167,5 +189,4 @@ if st.button("Predict If LinkedIn User"):
     ))
 
     st.plotly_chart(fig)
-
 
