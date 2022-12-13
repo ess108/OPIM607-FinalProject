@@ -35,7 +35,7 @@ ss = pd.DataFrame({
     "parent":clean_sm(s["par"]),
     "married":clean_sm(s["marital"]),
     "female":np.where(s["gender"]==2,s["gender"],0),
-    "age":np.where(s["age"]>98, np.nan, s["age"]),
+    "age":np.where(s["age"]>97, np.nan, s["age"]),
      "sm_li": clean_sm(s["web1h"])})
 
 ss = ss.dropna()
