@@ -160,7 +160,7 @@ result = ""
 if st.button("Predict If LinkedIn User"):
     person = [income, education, parent, married, female, age]
     result = round((lr.predict_proba([person])[0][1]*100),2)
-    if result >=.5:
+    if result >=50:
         st.success(f"Probability your are a LinkedIn user: {result}%")
     else:
         st.error(f"Probability your are a LinkedIn user:  {result}%")
