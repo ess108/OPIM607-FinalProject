@@ -179,10 +179,10 @@ if st.button("Predict If LinkedIn User"):
         mode = "gauge+number",
         value = result,
         title = {'text': f"{label}"},
-        gauge = {"axis": {"range": [0, 1]},
+        gauge = {"axis": {"range": [0, 100]},
                 "steps": [
-                    {"range": [0, .5], "color":"red"},
-                    {"range": [.50, 1], "color":"lightgreen"},
+                    {"range": [0, 50], "color":"red"},
+                    {"range": [50, 100], "color":"lightgreen"},
                     # {"range": [.15, 1], "color":"lightgreen"}
                 ],
                 "bar":{"color":"yellow"}}
