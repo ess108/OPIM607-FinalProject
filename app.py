@@ -165,7 +165,10 @@ if st.button("Predict If LinkedIn User"):
         st.success(f"Probability your are a LinkedIn user: {result}%")
     else:
         st.error(f"Probability your are a LinkedIn user:  {result}%")
-    
+
+
+ #Gauge visual
+   
     prediction = lr.predict([person])
     label = prediction
     if prediction == 1:
@@ -173,15 +176,6 @@ if st.button("Predict If LinkedIn User"):
     else:
          label = "LinkedIn User? No"
 
-
-#Gauge visual
-
-    # if result >= 50:
-    #     label = "LinkedIn User? Yes"
-    # else: 
-    #     result < 50
-    #     label = "LinkedIn User? No"
-    
 
     fig = go.Figure(go.Indicator(
         mode = "gauge+number",
