@@ -169,11 +169,11 @@ if st.button("Predict If LinkedIn User"):
 
 #Gauge visual
 
-    if result >= 50:
-        label = "LinkedIn User? Yes"
-    else: 
-        result < 50
-        label = "LinkedIn User? No"
+        if result >= 50:
+            label = "LinkedIn User? Yes"
+        else: 
+            result < 50
+            label = "LinkedIn User? No"
     
 
     fig = go.Figure(go.Indicator(
